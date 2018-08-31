@@ -3,9 +3,15 @@ import {Switch, Route} from 'react-router-dom';
 
 import interceptor from './components/layout/interceptor';
 
+import Template from './components/template'
+
+import Challenge from './components/routes/challenge';
+
 import './App.scss';
 
-const HelloWorld = () => (<div>Hello World</div>);
+const Home = () => (
+    <div>home</div>
+);
 
 class App extends Component {
     constructor(props) {
@@ -17,9 +23,12 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <Switch>
-                    <Route path="/" component={HelloWorld} />
-                </Switch>
+                <Template>
+                    <Switch>
+                        <Route path="/" exact component={Home}/>
+                        <Route path="/challenge/:id" exact component={Challenge}/>
+                    </Switch>
+                </Template>
             </div>
         );
     }

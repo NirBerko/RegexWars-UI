@@ -1,0 +1,7 @@
+@import '../../index';
+
+.Header {
+    width: 100%;
+    height: calc(#{$navSize} + 8px);
+    border-bottom: 3px solid #ececec;
+}

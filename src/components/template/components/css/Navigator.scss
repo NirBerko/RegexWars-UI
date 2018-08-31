@@ -1,0 +1,41 @@
+@import '../../index';
+
+.Navigator {
+    background-color: #4b4b4b;
+    width: 80px;
+    height: 100%;
+    &__logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #3d3d3d;
+        width: $navSize;
+        height: $navSize;
+        img {
+            height: 60%;
+            -webkit-user-drag: none;
+        }
+    }
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: $navSize;
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: $navSize;
+            height: $navSize;
+            cursor: pointer;
+            user-select: none;
+            &:hover {
+                background-color: lighten(#3d3d3d, 3%);
+            }
+            img {
+                width: 26px;
+                -webkit-user-drag: none;
+            }
+        }
+    }
+}

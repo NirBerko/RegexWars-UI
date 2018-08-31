@@ -1,0 +1,1 @@
+export const GET_CHALLENGE = 'GET_CHALLENGE';
