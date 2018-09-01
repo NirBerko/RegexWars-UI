@@ -1,20 +1,23 @@
 import React, {Component} from 'react';
-import {Switch, Redirect, Route} from 'react-router-dom';
+import {Switch, Redirect, Route, Link} from 'react-router-dom';
 
 import Login from './login';
+import Signup from './signup';
 
 import logo from '../../../res/img/logo.svg';
 
 import './index.scss'
 
 const tabs = {
-    SIGNIN: 'SIGNIN',
+    LOGIN: 'LOGIN',
     SIGNUP: 'SIGNUP'
 };
 
 class Auth extends Component {
     constructor(props) {
         super(props);
+
+        console.log(props);
 
         this.state = {
             tab: tabs.SIGNIN,
@@ -37,14 +40,28 @@ class Auth extends Component {
                 <img src={logo} className="Auth__logo" alt="RegexWars" />
 
                 <div className="Auth__container">
-                    <ul className="Auth__container__tabs">
-                        <li onClick={() => this.onTabClick(tabs.SIGNIN)}
-                            className={`Auth__container__tabs__tab${tab === tabs.SIGNIN ? '--active' : ''}`}>Log In</li>
-                        <li onClick={() => this.onTabClick(tabs.SIGNUP)}
-                            className={`Auth__container__tabs__tab${tab === tabs.SIGNUP ? '--active' : ''}`}>Sign Up</li>
-                    </ul>
+                    <div className="Auth__container__tabs">
+                        <Link to="/login" className={`Auth__container__tabs__tab${tab === tabs.LOGIN ? '--active' : ''}`}>Log In</Link>
+                        <Link to="/signup" className={`Auth__container__tabs__tab${tab === tabs.SIGNUP ? '--active' : ''}`}>Sign Up</Link>
+                    </div>
+
                     <Switch>
-                        <Route path="/login" exact component={Login}/>
+                        <Route path="/login" exact render={(props) => {
+                            if (this.state.tab !== tabs.LOGIN) {
+                                this.setState({
+                                    tab: tabs.LOGIN
+                                });
+                            }
+                            return <Login {...props} />
+                        }}/>
+                        <Route path="/signup" exact component={(props) => {
+                            if (this.state.tab !== tabs.SIGNUP) {
+                                this.setState({
+                                    tab: tabs.SIGNUP
+                                });
+                            }
+                            return <Signup {...props} />
+                        }}/>
                         <Redirect to="/login"/>
                     </Switch>
                 </div>

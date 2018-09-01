@@ -7,7 +7,7 @@ import Button from '../../../../ui/Button';
 
 import './index.scss';
 
-class Login extends Component {
+class Signup extends Component {
     constructor(props) {
         super(props);
 
@@ -23,17 +23,11 @@ class Login extends Component {
     }
 
     componentWillReceiveProps (nextProps) {
-        this.setState({
-            buttonDisabled:
-            (nextProps.userLogin.isPending &&
-            !nextProps.userLogin.error) || nextProps.userLogin.data !== null
-        })
+
     }
 
     onSubmit(e) {
         e.preventDefault();
-
-        this.props.loginUser(this.data.email, this.data.password);
 
         this.setState({
             buttonDisabled: true,
@@ -48,12 +42,13 @@ class Login extends Component {
         const {buttonDisabled} = this.state;
 
         return (
-            <div className="LoginPage">
+            <div className="SignupPage">
                 <form onSubmit={this.onSubmit}>
                     <input type="email" name="email" placeholder="Email Address" onChange={this.onInputChange}/>
                     <input type="password" name="password" placeholder="Password" onChange={this.onInputChange}/>
+                    <input type="password" name="password" placeholder="Verify Password" onChange={this.onInputChange}/>
                     <Button disabled={buttonDisabled}>
-                        {buttonDisabled ? 'Verifying...' : 'Log In'}
+                        {buttonDisabled ? 'Verifying...' : 'Sign Up'}
                     </Button>
                 </form>
             </div>
@@ -62,11 +57,11 @@ class Login extends Component {
 }
 
 const mapStateToProps = ({userReducer}) => ({
-    userLogin: userReducer.userLogin,
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    loginUser: (email, password) => dispatch(loginUser(email, password)),
+
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);
