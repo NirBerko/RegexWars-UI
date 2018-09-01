@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {loginUser} from '../../../../services/user/action'
+import {loginUser} from '../../../../services/user/action';
 
-import Button from '../../../../ui/Button';
+import {Button, Input} from '../../../../ui/FormUI';
 
 import './index.scss';
 
@@ -20,6 +20,10 @@ class Login extends Component {
 
         this.onSubmit = this.onSubmit.bind(this);
         this.onInputChange = this.onInputChange.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.changeTab();
     }
 
     componentWillReceiveProps (nextProps) {
@@ -50,8 +54,8 @@ class Login extends Component {
         return (
             <div className="LoginPage">
                 <form onSubmit={this.onSubmit}>
-                    <input type="email" name="email" placeholder="Email Address" onChange={this.onInputChange}/>
-                    <input type="password" name="password" placeholder="Password" onChange={this.onInputChange}/>
+                    <Input type="email" name="email" autoComplete="off" placeholder="Email Address" onChange={this.onInputChange}/>
+                    <Input type="password" name="password" placeholder="Password" onChange={this.onInputChange}/>
                     <Button disabled={buttonDisabled}>
                         {buttonDisabled ? 'Verifying...' : 'Log In'}
                     </Button>

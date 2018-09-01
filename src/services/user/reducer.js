@@ -5,6 +5,7 @@ import {UAuthenticated} from "../../utils";
 
 import {
     USER_LOGIN,
+    USER_REGISTER,
     GET_USER_DETAILS,
     USER_LOGOUT,
 } from './constant'
@@ -29,12 +30,40 @@ const userLoginReducer = typeToReducer({
             UAuthenticated.setAuthentication(action.payload.token);
             return {
                 ...initialState,
-                data: action.payload,
+                data: action.payload.user,
+            };
+        }
+    },
+    [USER_REGISTER]: {
+        FULFILLED: (state, action) => {
+            UAuthenticated.setAuthentication(action.payload.token);
+            return {
+                ...initialState,
+                data: action.payload.user,
             };
         }
     }
 }, initialState);
 
+const userRegisterReducer = typeToReducer({
+    [USER_REGISTER]: {
+        PENDING: () => ({
+            ...initialState,
+            isPending: true
+        }),
+        REJECTED: (state, action) => ({
+            ...initialState,
+            error: action.payload,
+        }),
+        FULFILLED: (state, action) => {
+            UAuthenticated.setAuthentication(action.payload.token);
+            return {
+                ...initialState,
+                data: action.payload,
+            };
+        }
+    }
+}, initialState);
 
 const userDetailsReducer = typeToReducer({
     [ GET_USER_DETAILS ]: {
@@ -58,5 +87,6 @@ const userDetailsReducer = typeToReducer({
 
 export default combineReducers({
     userLogin: userLoginReducer,
+    userRegister: userRegisterReducer,
     userDetails: userDetailsReducer,
 })

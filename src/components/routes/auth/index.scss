@@ -52,13 +52,11 @@
                 padding: 1rem 0;
             }
         }
-    }
-
-    input {
-        width: 100%;
-        border: 1px solid #bdc3c7;
-        outline: none;
-        border-radius: 5px;
-        padding: 0.8rem 1.4rem;
+        .Input {
+            margin-bottom: 0.8rem;
+        }
+        .Button {
+            width: 100%;
+        }
     }
 }

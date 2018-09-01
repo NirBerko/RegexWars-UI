@@ -6,12 +6,12 @@ import {getAllChallenges} from '../../../services/challenge/action';
 
 import './index.scss';
 
-const Header = () => (
+const Header = ({challenges}) => (
     <div className="Challenges__header">
         <div className="Challenges__header__details">
             <div className="Challenges__header__details__position">
                 <h1>Challenges</h1>
-                <span>274 challenges</span>
+                <span>{challenges && challenges.length} challenges</span>
             </div>
         </div>
         <ul className="Challenges__header__tabs">
@@ -50,7 +50,7 @@ const ChallengesList = ({challenges}) => (
 
 const Challenges = ({challenges}) => (
     <div className="Challenges">
-        <Header />
+        <Header challenges={challenges.data} />
         <div className="Challenges__container">
             {challenges.data !== null && <ChallengesList challenges={challenges.data}/>}
         </div>

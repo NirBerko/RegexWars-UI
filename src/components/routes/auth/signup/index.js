@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Formik} from 'formik';
 
-import {loginUser} from '../../../../services/user/action'
+import {registerUser} from '../../../../services/user/action';
 
-import Button from '../../../../ui/Button';
+import {Button, Input} from '../../../../ui/FormUI';
 
 import './index.scss';
 
@@ -14,54 +15,106 @@ class Signup extends Component {
         this.data = {};
 
         this.state = {
-            buttonDisabled: false,
-            loader: false,
+            isSubmitting: false,
+            error: null,
         };
 
         this.onSubmit = this.onSubmit.bind(this);
-        this.onInputChange = this.onInputChange.bind(this);
+        this.validators = this.validators.bind(this);
     }
 
-    componentWillReceiveProps (nextProps) {
-
+    componentDidMount() {
+        this.props.changeTab();
     }
 
-    onSubmit(e) {
-        e.preventDefault();
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.userRegister.error) {
+            this.setState({
+                isSubmitting: false,
+                error: nextProps.userRegister.error.response.data,
+            })
+        }
+    }
+
+    onSubmit(values) {
+        this.props.registerUser(values.email, values.password);
 
         this.setState({
-            buttonDisabled: true,
+            error: null,
+            isSubmitting: true,
         })
     }
 
-    onInputChange(e) {
-        this.data[e.target.name] = e.target.value;
-    }
+    validators = (values) => {
+        let errors = {};
+        if (!values.email) {
+            errors.email = "Please enter your email address";
+        } else if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+        ) {
+            errors.email = "Please enter a valid email address";
+        }
+        if (!values.password) {
+            errors.password = "Please enter your password";
+        }
+        if (!values.verifyPassword) {
+            errors.verifyPassword = "Please enter your password again";
+        } else if (values.password !== values.verifyPassword) {
+            errors.verifyPassword = "Passwords do not match.";
+        }
+        return errors;
+    };
 
     render() {
-        const {buttonDisabled} = this.state;
-
         return (
             <div className="SignupPage">
-                <form onSubmit={this.onSubmit}>
-                    <input type="email" name="email" placeholder="Email Address" onChange={this.onInputChange}/>
-                    <input type="password" name="password" placeholder="Password" onChange={this.onInputChange}/>
-                    <input type="password" name="password" placeholder="Verify Password" onChange={this.onInputChange}/>
-                    <Button disabled={buttonDisabled}>
-                        {buttonDisabled ? 'Verifying...' : 'Sign Up'}
-                    </Button>
-                </form>
+
+                <Formik validate={values => this.validators(values)}
+                        onSubmit={this.onSubmit}
+                        isSubmitting={this.state.isSubmitting}
+                        render={({values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting,}) => (
+                            <form onSubmit={handleSubmit}>
+
+                                <Input type="email"
+                                       name="email"
+                                       autoComplete="off"
+                                       placeholder="Email Address"
+                                       onChange={handleChange}
+                                       onBlur={handleBlur}
+                                       error={(touched.email && errors.email) || (this.state.error && (this.state.error.errorCode === 101 && this.state.error.error))}
+                                />
+
+                                <Input type="password"
+                                       name="password"
+                                       placeholder="Password"
+                                       onChange={handleChange}
+                                       onBlur={handleBlur}
+                                       error={touched.password && errors.password} />
+
+                                <Input type="password"
+                                       name="verifyPassword"
+                                       placeholder="Verify Password"
+                                       onChange={handleChange}
+                                       onBlur={handleBlur}
+                                       error={touched.verifyPassword && errors.verifyPassword} />
+
+                                <Button type="submit" disabled={this.state.isSubmitting || Object.keys(errors).length}>
+                                    {this.state.isSubmitting ? 'Verifying...' : 'Sign Up'}
+                                </Button>
+                            </form>
+                        )}
+                />
             </div>
         )
     }
 }
 
 const mapStateToProps = ({userReducer}) => ({
-
+    userRegister: userReducer.userRegister
 });
 
 const mapDispatchToProps = (dispatch) => ({
-
+    registerUser: (email, password) => dispatch(registerUser(email, password))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);

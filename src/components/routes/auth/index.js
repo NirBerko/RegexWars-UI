@@ -17,10 +17,8 @@ class Auth extends Component {
     constructor(props) {
         super(props);
 
-        console.log(props);
-
         this.state = {
-            tab: tabs.SIGNIN,
+            tab: tabs.LOGIN,
         };
 
         this.onTabClick = this.onTabClick.bind(this);
@@ -37,7 +35,7 @@ class Auth extends Component {
 
         return (
             <div className="Auth">
-                <img src={logo} className="Auth__logo" alt="RegexWars" />
+                <img src={logo} className="Auth__logo" alt="RegexWars"/>
 
                 <div className="Auth__container">
                     <div className="Auth__container__tabs">
@@ -46,22 +44,8 @@ class Auth extends Component {
                     </div>
 
                     <Switch>
-                        <Route path="/login" exact render={(props) => {
-                            if (this.state.tab !== tabs.LOGIN) {
-                                this.setState({
-                                    tab: tabs.LOGIN
-                                });
-                            }
-                            return <Login {...props} />
-                        }}/>
-                        <Route path="/signup" exact component={(props) => {
-                            if (this.state.tab !== tabs.SIGNUP) {
-                                this.setState({
-                                    tab: tabs.SIGNUP
-                                });
-                            }
-                            return <Signup {...props} />
-                        }}/>
+                        <Route path="/login" exact render={(props) => <Login {...props} changeTab={() => this.onTabClick(tabs.LOGIN)} />} />
+                        <Route path="/signup" exact render={(props) => <Signup {...props} changeTab={() => this.onTabClick(tabs.SIGNUP)} />} />
                         <Redirect to="/login"/>
                     </Switch>
                 </div>
