@@ -79,7 +79,10 @@ class Signup extends Component {
                                        name="email"
                                        autoComplete="off"
                                        placeholder="Email Address"
-                                       onChange={handleChange}
+                                       onChange={(e) => {
+                                           this.setState({error: null});
+                                           handleChange(e);
+                                       }}
                                        onBlur={handleBlur}
                                        error={(touched.email && errors.email) || (this.state.error && (this.state.error.errorCode === 101 && this.state.error.error))}
                                 />

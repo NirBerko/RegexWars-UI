@@ -9,6 +9,7 @@
     border-radius: 5px;
     transition: .2s;
     cursor: pointer;
+    outline: none;
     &:hover {
         background-color: darken($JungleGreen, 3%);
     }

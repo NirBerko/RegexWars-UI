@@ -10,6 +10,10 @@
         font-size: 0.85rem;
         padding: 0.8rem 1.4rem;
         transition: .2s;
+        &:focus {
+            border-color: $Mariner;
+            box-shadow: 0 0 0 2px rgba($Mariner, 0.2);
+        }
     }
     &--error {
         input {
@@ -17,6 +21,10 @@
             border-color: $MonaLisa;
             border-radius: 5px 5px 0 0;
             border-bottom: 0;
+            &:focus {
+                border-color: $MonaLisa;
+                box-shadow: none;
+            }
         }
         .Input__error {
             height: auto;

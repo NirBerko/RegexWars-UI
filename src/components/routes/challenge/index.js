@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {getChallenge} from '../../../services/challenge/action'
-import {setPageTitle} from '../../../services/global/action'
+import {URegex} from '../../../utils';
+
+import {getChallenge, sendSolution} from '../../../services/challenge/action';
+import {setPageTitle} from '../../../services/global/action';
 
 import Expression from './components/Expression';
+
+import UIBlocker from '../../../ui/UIBlocker';
+import {Button} from '../../../ui/FormUI';
 
 import './index.scss';
 
@@ -18,7 +23,11 @@ class Challenge extends Component {
             regexText: "",
             replaceWith: '',
             regexMode: 'g',
+            succeeded: 0,
+            blockerVisible: false,
         };
+
+        this.sendSolution = this.sendSolution.bind(this);
     }
 
     componentWillMount() {
@@ -34,39 +43,78 @@ class Challenge extends Component {
         }
     }
 
-    render() {
+    componentDidUpdate() {
         const {challenge} = this.props;
         const {regexText, regexMode} = this.state;
 
-        const numberOfOk = 0;
+        let succeeded = 0;
+
+        if (challenge.data !== null && !challenge.isPending && !challenge.error && this.state.regexText) {
+            challenge.data.test_cases.forEach(({testCase, regexedTestCase}) => {
+                let regex = URegex.regexHandler(regexText, regexMode);
+
+                if (regex) {
+                    let test = testCase.replace(regex, this.state.replaceWith) === regexedTestCase;
+                    if (test) {
+                        succeeded = succeeded + 1;
+                    }
+                }
+            });
+        }
+
+        if (succeeded !== this.state.succeeded) {
+            this.setState({
+                succeeded
+            })
+        }
+    }
+
+    sendSolution() {
+        const {challenge} = this.props;
+        const {regexText, regexMode, replaceWith, succeeded} = this.state;
+
+        let canSendSolution = false;
+
+        if (challenge.data !== null && !challenge.isPending && !challenge.error && this.state.regexText) {
+            canSendSolution = challenge.data.test_cases.length === succeeded;
+        }
+
+        if (canSendSolution) {
+            this.props.sendSolution(challenge.data._id, {regexText, regexMode, replaceWith})
+        }
+    };
+
+    render() {
+        const {challenge} = this.props;
+        const {regexText, regexMode, succeeded} = this.state;
 
         if (challenge.data !== null && !challenge.isPending && !challenge.error) {
+            const canSendSolution = challenge.data.test_cases.length === succeeded;
+
             return (
                 <div className="Challenge">
+                    <UIBlocker visible={this.state.blockerVisible}>
+                        test
+                    </UIBlocker>
                     <div className="Challenge__input">
                         <Expression onChange={(regexText) => this.setState({regexText})}/>
                         <input placeholder="Replace with" value={this.state.replaceWith}
                                onChange={(e) => this.setState({replaceWith: e.target.value})}/>
+                        <Button disabled={!canSendSolution} onClick={this.sendSolution}>Send solution</Button>
                     </div>
                     <div className="Challenge__testCases">
-                        <div className="Challenge__testCases__title">Test Cases ({numberOfOk}/{challenge.data.test_cases.length})
+                        <div className="Challenge__testCases__title">Test Cases ({succeeded}/{challenge.data.test_cases.length})
                         </div>
                         <div className="Challenge__testCases__container">
                             <ul>
                                 {challenge.data.test_cases.map(({testCase, regexedTestCase}, index) => {
                                     let liveP = testCase;
                                     let test = false;
-                                    let regex = undefined;
-
-                                    try {
-                                        regex = new RegExp(regexText, regexMode);
-                                    } catch (e) {
-                                        regex = undefined;
-                                    }
+                                    let regex = URegex.regexHandler(regexText, regexMode);
 
                                     if (regex) {
-                                        test = testCase.replace(new RegExp(regexText, regexMode), this.state.replaceWith) === regexedTestCase;
-                                        liveP = liveP.replace(new RegExp(regexText, regexMode), this.state.replaceWith);
+                                        test = testCase.replace(regex, this.state.replaceWith) === regexedTestCase;
+                                        liveP = liveP.replace(regex, this.state.replaceWith);
                                     }
 
                                     return (
@@ -101,6 +149,7 @@ const mapStateToProps = ({challengeRedcuer}) => ({
 const mapDispatchToProps = (dispatch) => ({
     getChallenge: (id) => dispatch(getChallenge(id)),
     setPageTitle: (title) => dispatch(setPageTitle(title)),
+    sendSolution: (id, {regexText, regexMode, replaceWith}) => dispatch(sendSolution(id, {regexText, regexMode, replaceWith})),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Challenge);

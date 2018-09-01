@@ -38,11 +38,8 @@
     }
 
     &__container {
-        display: grid;
-        grid-template-columns: auto 400px;
-        @include respond-to('handhelds') {
-            grid-template-columns: 1fr;
-        }
+        width: 100%;
+        max-width: 1300px;
         &__list {
             display: flex;
             flex-direction: column;

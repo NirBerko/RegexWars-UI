@@ -1,2 +1,3 @@
 export const GET_CHALLENGE = 'GET_CHALLENGE';
 export const GET_ALL_CHALLENGES = 'GET_CHALLENGES';
+export const SEND_SOLUTION = 'SEND_SOLUTION';
