@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router'
 import {Switch, Route} from 'react-router-dom';
 import {UAuthenticated} from './utils';
 
@@ -82,4 +83,4 @@ const mapDispatchToProps = (dispatch) => ({
     getUserDetails: () => dispatch(getUserDetails()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
