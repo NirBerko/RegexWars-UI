@@ -25,8 +25,8 @@ class Login extends Component {
     componentWillReceiveProps (nextProps) {
         this.setState({
             buttonDisabled:
-            nextProps.userLogin.isPending &&
-            !nextProps.userLogin.error || nextProps.userLogin.data !== null
+            (nextProps.userLogin.isPending &&
+            !nextProps.userLogin.error) || nextProps.userLogin.data !== null
         })
         /*if (!this.state.loader) {
             this.setState({

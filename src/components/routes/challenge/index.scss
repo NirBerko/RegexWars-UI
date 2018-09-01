@@ -11,6 +11,7 @@
 .Challenge {
     width: 100%;
     padding: $paddingSides 5%;
+    min-width: 800px;
     &__input {
         display: grid;
         grid-template-columns: 1fr 1fr;
