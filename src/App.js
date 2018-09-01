@@ -26,7 +26,9 @@ class App extends Component {
 
         interceptor();
 
-        this.authenticated = null;
+        this.state = {
+            authenticated: null,
+        };
 
         this.checkUserAuth = this.checkUserAuth.bind(this);
     }
@@ -37,9 +39,13 @@ class App extends Component {
         if (token && props.userDetails.data === null && !props.userDetails.isPending && !props.userDetails.error) {
             props.getUserDetails();
         } else if (props.userDetails.data !== null && !props.userDetails.isPending && !props.userDetails.error) {
-            this.authenticated = true;
+            this.setState({
+                authenticated: true,
+            })
         } else if (props.userDetails.error || !token) {
-            this.authenticated = false;
+            this.setState({
+                authenticated: false,
+            });
             UAuthenticated.removeAuthentication();
         }
     }
@@ -54,12 +60,13 @@ class App extends Component {
 
     //noinspection JSMethodCanBeStatic
     render() {
-        if (this.authenticated === null) {
+        console.log(process.env.REACT_APP_API_URL)
+        if (this.state.authenticated === null) {
             return <Loader />
         } else {
             return (
                 <div className="App">
-                    {this.authenticated ? <Template>
+                    {this.state.authenticated ? <Template>
                         <Switch>
                             <Route path="/" exact component={Home}/>
                             <Route path="/challenge/:id" exact component={Challenge}/>
