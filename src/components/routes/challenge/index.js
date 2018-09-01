@@ -2,22 +2,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {getChallenge} from '../../../services/challenge/action'
+import {setPageTitle} from '../../../services/global/action'
 
 import Expression from './components/Expression';
 
 import './index.scss';
-
-const problematic = [
-    'This is already a valid sentence.',
-    'Extra  spaces',
-    'Multiple  extra  spaces',
-    'There  are 1.2 apples',
-];
-
-const answer = {
-    regex: /[ ]+/,
-    replaceWith: ' '
-};
 
 const replaceSpaces = (string) => string.replace(/ /g, '\u00a0').replace(/\t/g, '\u2003');
 
@@ -36,6 +25,15 @@ class Challenge extends Component {
         this.props.getChallenge(this.props.match.params.id);
     }
 
+    //noinspection JSMethodCanBeStatic
+    componentWillReceiveProps(nextProps) {
+        const {data, isPending, error} = nextProps.challenge;
+
+        if (data !== null && !isPending && !error) {
+            nextProps.setPageTitle(data.title);
+        }
+    }
+
     render() {
         const {challenge} = this.props;
         const {regexText, regexMode} = this.state;
@@ -51,7 +49,7 @@ class Challenge extends Component {
                                onChange={(e) => this.setState({replaceWith: e.target.value})}/>
                     </div>
                     <div className="Challenge__testCases">
-                        <div className="Challenge__testCases__title">Test Cases ({numberOfOk}/{problematic.length})
+                        <div className="Challenge__testCases__title">Test Cases ({numberOfOk}/{challenge.data.test_cases.length})
                         </div>
                         <div className="Challenge__testCases__container">
                             <ul>
@@ -103,6 +101,7 @@ const mapStateToProps = ({challenge}) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getChallenge: (id) => dispatch(getChallenge(id)),
+    setPageTitle: (title) => dispatch(setPageTitle(title)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Challenge);

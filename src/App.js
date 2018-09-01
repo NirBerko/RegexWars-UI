@@ -20,6 +20,7 @@ class App extends Component {
         interceptor();
     }
 
+    //noinspection JSMethodCanBeStatic
     render() {
         return (
             <div className="App">

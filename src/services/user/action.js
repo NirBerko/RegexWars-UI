@@ -1,6 +1,6 @@
 import * as Api from './api';
 import {
-    GET_SYSTEM_ANALYTICS,
+    GET_USER_DETAILS,
 } from './constant';
 
 export const getUserDetails = () => {

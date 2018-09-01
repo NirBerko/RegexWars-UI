@@ -1,3 +1,4 @@
+@import '../../../../stylesheets/colors';
 @import '../../index';
 
 .Navigator {
@@ -8,9 +9,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #3d3d3d;
+        background-color: $MineShaft;
         width: $navSize;
         height: $navSize;
+        text-decoration: none;
+        cursor: pointer;
+        -webkit-user-drag: none;
         img {
             height: 60%;
             -webkit-user-drag: none;
@@ -22,15 +26,21 @@
         padding: 0;
         width: $navSize;
         li {
-            display: flex;
-            align-items: center;
-            justify-content: center;
             width: $navSize;
             height: $navSize;
-            cursor: pointer;
-            user-select: none;
+            transition: 0.2s;
             &:hover {
-                background-color: lighten(#3d3d3d, 3%);
+                background-color: lighten($MineShaft, 3%);
+            }
+            a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: $navSize;
+                height: $navSize;
+                user-select: none;
+                -webkit-user-drag: none;
+                cursor: pointer;
             }
             img {
                 width: 26px;
