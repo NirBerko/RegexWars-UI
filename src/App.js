@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router'
 import {Switch, Route} from 'react-router-dom';
+import Favicon from 'react-favicon';
+
 import {UAuthenticated} from './utils';
 
 import {getUserDetails} from './services/user/action';
@@ -11,9 +13,13 @@ import interceptor from './components/layout/interceptor';
 import Template from './components/template'
 
 import Loader from './components/routes/loader';
-import Login from './components/routes/auth/login';
+import Auth from './components/routes/auth';
+import Logout from './components/routes/auth/logout';
+
 import Challenges from './components/routes/challenges';
 import Challenge from './components/routes/challenge';
+
+import favicon from './res/img/favicon.png';
 
 import './App.scss';
 import './stylesheets/presets.scss';
@@ -63,16 +69,17 @@ class App extends Component {
         } else {
             return (
                 <div className="App">
+                    <Favicon url={favicon}/>
+
                     {this.state.authenticated ? <Template>
                         <Switch>
                             <Route path="/" exact component={Challenges}/>
                             <Route path="/challenges" exact component={Challenges}/>
                             <Route path="/challenge/:id" exact component={Challenge}/>
+
+                            <Route path="/logout" exact component={Logout}/>
                         </Switch>
-                    </Template> :
-                        <Switch>
-                            <Route path="/" exact component={Login}/>
-                        </Switch>}
+                    </Template> : <Auth />}
                 </div>
             );
         }

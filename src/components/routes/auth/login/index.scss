@@ -1,15 +1,10 @@
 @import '../../../../stylesheets/colors';
 
 .LoginPage {
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
   form {
     display: flex;
     flex-direction: column;
-    width: 95%;
+    width: 100%;
     max-width: 300px;
     input, button {
       width: 100%;
@@ -43,18 +38,6 @@
         color: #a2beda;
         border-color: #ebf1f7;
       }
-    }
-  }
-  &__loaderImg {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 10px;
-    height: 29px;
-    img {
-      animation: loaderAnimation 0.7s linear infinite;
-      width: 29px;
-      height: 29px;
     }
   }
 }

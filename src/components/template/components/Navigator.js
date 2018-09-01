@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import logo from '../../../res/img/logo.svg';
+import logo from '../../../res/img/icon.svg';
 import challenges from '../../../res/img/list.svg';
 
 import './css/Navigator.scss';
