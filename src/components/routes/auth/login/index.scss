@@ -1,52 +1,12 @@
 @import '../../../../stylesheets/colors';
 
 .LoginPage {
-  form {
-    display: flex;
-    flex-direction: column;
     width: 100%;
-    max-width: 300px;
-    input, button {
-      width: 100%;
-      padding: 15px 5px;
-      border: 0;
-      margin: 3px 0;
-      text-align: center;
-      font-size: 1.1rem;
-      outline: none;
-      border-radius: 5px;
-    }
+    padding: 1rem 2rem;
     input {
-      background-color: #ebf1f7;
+        margin-bottom: 0.8rem;
     }
     button {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: $Mariner;
-      border-color: #ebf1f7;
-      color: #ffffff;
-      cursor: pointer;
-      transition: .2s;
-      &:hover {
-        background-color: $DarkenMariner;
-      }
-      &:disabled {
-        background-color: #ebf1f7;
-        cursor: not-allowed;
-        color: #a2beda;
-        border-color: #ebf1f7;
-      }
+        width: 100%;
     }
-  }
-}
-
-@keyframes loaderAnimation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

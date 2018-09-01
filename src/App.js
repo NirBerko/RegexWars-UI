@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router'
-import {Switch, Route} from 'react-router-dom';
+import {Redirect, Switch, Route} from 'react-router-dom';
 import Favicon from 'react-favicon';
 
 import {UAuthenticated} from './utils';
@@ -73,11 +73,12 @@ class App extends Component {
 
                     {this.state.authenticated ? <Template>
                         <Switch>
-                            <Route path="/" exact component={Challenges}/>
                             <Route path="/challenges" exact component={Challenges}/>
                             <Route path="/challenge/:id" exact component={Challenge}/>
 
                             <Route path="/logout" exact component={Logout}/>
+
+                            <Redirect to="/challenges"/>
                         </Switch>
                     </Template> : <Auth />}
                 </div>

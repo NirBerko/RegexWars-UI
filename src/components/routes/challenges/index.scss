@@ -42,12 +42,11 @@
         &__list {
             display: flex;
             flex-direction: column;
-            padding: 0 $paddingSides;
+            padding: 3rem $paddingSides;
             &__challenge {
                 background-color: #ffffff;
                 border: 1px solid $Gallery;
                 border-radius: 5px;
-                margin-top: 3rem;
                 padding: 2rem;
                 cursor: default;
                 &--solved {

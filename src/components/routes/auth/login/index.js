@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 
 import {loginUser} from '../../../../services/user/action'
 
+import Button from '../../../../ui/Button';
+
 import './index.scss';
 
 class Login extends Component {
@@ -12,51 +14,50 @@ class Login extends Component {
         this.data = {};
 
         this.state = {
-            buttonDisabled: true,
+            buttonDisabled: false,
             loader: false,
         };
 
         this.onSubmit = this.onSubmit.bind(this);
-        this.validator = this.validator.bind(this);
         this.onInputChange = this.onInputChange.bind(this);
     }
 
     componentWillReceiveProps (nextProps) {
-        if (!this.state.loader) {
+        this.setState({
+            buttonDisabled: nextProps.userLogin.isPending && !nextProps.userLogin.error
+        })
+        /*if (!this.state.loader) {
             this.setState({
                 loader: nextProps.userLogin.isPending
             })
-        }
+        }*/
     }
 
     onSubmit(e) {
         e.preventDefault();
 
         this.props.loginUser(this.data.email, this.data.password);
-    }
 
-    validator() {
         this.setState({
-            buttonDisabled: !this.data.email || !this.data.password
+            buttonDisabled: true,
         })
     }
 
     onInputChange(e) {
         this.data[e.target.name] = e.target.value;
-
-        this.validator();
     }
 
     render() {
+        const {buttonDisabled} = this.state;
+
         return (
             <div className="LoginPage">
                 <form onSubmit={this.onSubmit}>
-                    <input type="email" name="email" placeholder="Email address" onChange={this.onInputChange}/>
+                    <input type="email" name="email" placeholder="Email Address" onChange={this.onInputChange}/>
                     <input type="password" name="password" placeholder="Password" onChange={this.onInputChange}/>
-                    <button disabled={this.state.buttonDisabled}>Login</button>
-                    <div className="LoginPage__loaderImg">
-                        {this.state.loader && <span>loading</span>}
-                    </div>
+                    <Button disabled={buttonDisabled}>
+                        {buttonDisabled ? 'Verifying...' : 'Login'}
+                    </Button>
                 </form>
             </div>
         )
