@@ -1,9 +1,10 @@
 import axios from "axios";
 
+import {UAuthenticated} from '../../utils'
+
 export default () => {
     axios.interceptors.request.use(function (config) {
-        const token = JSON.parse(localStorage.getItem('token'));
-        config.headers.common['authorization'] = `Bearer ${token}`;
+        config.headers.common['authorization'] = `Bearer ${UAuthenticated.getAuthenticationToken()}`;
         config.headers.common['Content-Type'] = 'application/json';
         config.url = process.env.REACT_APP_API_URL + config.url;
         return config;

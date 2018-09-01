@@ -1,0 +1,69 @@
+@import '../../../../stylesheets/colors';
+
+.LoginPage {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    max-width: 300px;
+    input, button {
+      width: 100%;
+      padding: 15px 5px;
+      border: 0;
+      margin: 3px 0;
+      text-align: center;
+      font-size: 1.1rem;
+      outline: none;
+      border-radius: 5px;
+    }
+    input {
+      background-color: #ebf1f7;
+    }
+    button {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $Mariner;
+      border-color: #ebf1f7;
+      color: #ffffff;
+      cursor: pointer;
+      transition: .2s;
+      &:hover {
+        background-color: $DarkenMariner;
+      }
+      &:disabled {
+        background-color: #ebf1f7;
+        cursor: not-allowed;
+        color: #a2beda;
+        border-color: #ebf1f7;
+      }
+    }
+  }
+  &__loaderImg {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+    height: 29px;
+    img {
+      animation: loaderAnimation 0.7s linear infinite;
+      width: 29px;
+      height: 29px;
+    }
+  }
+}
+
+@keyframes loaderAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
