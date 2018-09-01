@@ -60,7 +60,6 @@ class App extends Component {
 
     //noinspection JSMethodCanBeStatic
     render() {
-        console.log(process.env.REACT_APP_API_URL)
         if (this.state.authenticated === null) {
             return <Loader />
         } else {
