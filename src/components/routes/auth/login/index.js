@@ -49,9 +49,6 @@ class Login extends Component {
 
     render() {
         return (
-            <div></div>
-        )
-        /*return (
             <div className="LoginPage">
                 <form onSubmit={this.onSubmit}>
                     <input type="email" name="email" placeholder="Email address" onChange={this.onInputChange}/>
@@ -62,7 +59,7 @@ class Login extends Component {
                     </div>
                 </form>
             </div>
-        )*/
+        )
     }
 }
 

@@ -27,6 +27,9 @@ class Auth extends Component {
                 <img src={logo} className="Auth__logo" alt="RegexWars" />
 
                 <div className="Auth__container">
+                    <div className="Auth__container__tabs">
+
+                    </div>
                     <Switch>
                         <Route path="/login" exact component={Login}/>
                         <Redirect to="/login"/>
