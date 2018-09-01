@@ -1,11 +1,16 @@
+@import '../../../stylesheets/colors';
+@import '../../../stylesheets/variables';
+
 @mixin block {
-    border: 2px solid #ececec;
+    background-color: #ffffff;
+    border: 2px solid $Gallery;
     border-radius: 5px;
     margin-bottom: 24px;
 }
 
 .Challenge {
     width: 100%;
+    padding: $paddingSides 5%;
     &__input {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -28,7 +33,7 @@
         display: flex;
         flex-direction: column;
         &__title {
-            background-color: #ececec;
+            background-color: $Gallery;
             width: 100%;
             padding: 14px;
         }
@@ -57,10 +62,20 @@
                         width: 100%;
                         padding: 10px 15px;
                         border-radius: 5px;
-                        border: 1px solid #ececec;
+                        border: 1px solid $Gallery;
+                        transition: .2s;
                         &.live {
-                            border-style: dashed;
                             margin-top: 10px;
+                            height: 0;
+                            padding: 0;
+                            overflow: hidden;
+                            border-style: dashed;
+                            opacity: 0;
+                            &--show {
+                                height: auto;
+                                padding: 10px 15px;
+                                opacity: 1;
+                            }
                         }
                         &.bad {
                             border: 1px solid #ffa39e;

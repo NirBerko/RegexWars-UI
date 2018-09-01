@@ -1,10 +1,12 @@
-@import '../../index';
+@import '../../../../stylesheets/variables';
 
 .Header {
+    background-color: #ffffff;
     display: flex;
     align-items: center;
     width: 100%;
-    height: calc(#{$navSize} + 8px);
-    border-bottom: 3px solid #ececec;
+    height: $navSize;
+    min-height: $navSize;
+    border-bottom: 1px solid #ececec;
     padding: 0 $paddingSides;
 }

@@ -78,8 +78,7 @@ class Challenge extends Component {
                                             <i />
                                             <div className="Challenge__testCases__container__result">
                                                 <span className={regexText && (test ? 'ok' : 'bad')}>{regexedTestCase}</span>
-                                                {regexText && !test &&
-                                                <span className="live">{replaceSpaces(liveP)}</span>}
+                                                <span className={`live ${regexText && !test ? 'live--show' : ''}`}>{replaceSpaces(liveP)}</span>
                                             </div>
                                         </li>
                                     )
@@ -95,8 +94,8 @@ class Challenge extends Component {
     }
 }
 
-const mapStateToProps = ({challenge}) => ({
-    challenge
+const mapStateToProps = ({challengeRedcuer}) => ({
+    challenge: challengeRedcuer.challenge,
 });
 
 const mapDispatchToProps = (dispatch) => ({

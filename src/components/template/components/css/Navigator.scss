@@ -1,5 +1,5 @@
 @import '../../../../stylesheets/colors';
-@import '../../index';
+@import '../../../../stylesheets/variables';
 
 .Navigator {
     background-color: #4b4b4b;
@@ -21,9 +21,6 @@
         }
     }
     ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
         width: $navSize;
         li {
             width: $navSize;

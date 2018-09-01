@@ -5,5 +5,5 @@ import challengeRedcuer from './challenge/reducer';
 export default {
     globalVars: globalReducer,
     userReducer,
-    challenge: challengeRedcuer,
+    challengeRedcuer,
 }

@@ -13,7 +13,7 @@ export default () => (
         </Link>
         <ul className="Navigator__nav">
             <li>
-                <Link to="/challenge/5b89d57354370068d8f6bf5a">
+                <Link to="/challenges">
                     <img src={challenges} alt="challenges"/>
                 </Link>
             </li>

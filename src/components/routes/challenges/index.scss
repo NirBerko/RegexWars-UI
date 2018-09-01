@@ -1,0 +1,133 @@
+@import '../../../stylesheets/colors';
+@import '../../../stylesheets/variables';
+
+.Challenges {
+    &__header {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        background-color: #ffffff;
+        padding: 4rem $paddingSides 5rem $paddingSides;
+        border-bottom: 1px solid $Gallery;
+
+        &__details {
+            &__position {
+                display: flex;
+                flex-direction: column;
+                cursor: default;
+                span {
+                    margin-top: 0.4rem;
+                    color: $Mischka;
+                }
+            }
+        }
+
+        &__tabs {
+            position: absolute;
+            bottom: 0;
+            &__tab {
+                padding: 1rem 0;
+                cursor: pointer;
+                &--active {
+                    border-bottom: 3px solid $JungleGreen;
+                    cursor: default;
+                }
+            }
+        }
+    }
+
+    &__container {
+        display: grid;
+        grid-template-columns: auto 400px;
+        &__list {
+            display: flex;
+            flex-direction: column;
+            padding: 0 $paddingSides;
+            &__challenge {
+                background-color: #ffffff;
+                border: 1px solid $Gallery;
+                border-radius: 5px;
+                margin-top: 3rem;
+                padding: 2rem;
+                cursor: default;
+                &--solved {
+                    h2 {
+                        opacity: 0.4;
+                    }
+                    p {
+                        opacity: 0.4;
+                    }
+                    ul {
+                        opacity: 0.4;
+                    }
+                    .Challenges__container__list__challenge__title__solved {
+                        display: flex;
+                    }
+                }
+                h2 {
+                    font-weight: normal;
+                }
+                p {
+                    margin-top: 1rem;
+                }
+                &__title {
+                    display: flex;
+                    align-items: center;
+                    a {
+                        text-decoration: none;
+                        color: $MineShaft;
+                    }
+                    &__solved {
+                        display: none;
+                        align-items: center;
+                        color: $JungleGreen;
+                        margin-left: 1.5rem;
+                        margin-top: 2px;
+                        &:before {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            background-color: $JungleGreen;
+                            width: 1.7rem;
+                            height: 1.7rem;
+                            font-size: 0.7rem;
+                            content: '✔';
+                            border-radius: 100%;
+                            margin-right: 0.4rem;
+                            color: #ffffff;
+                        }
+                    }
+                }
+                &__details {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    ul {
+                        display: flex;
+                        margin-top: 1rem;
+                        color: $Mischka;
+                        font-weight: 500;
+                        li {
+                            margin-right: 1rem;
+                            span {
+                                color: $MineShaft;
+                            }
+                        }
+                    }
+                    &__viewChallenge {
+                        background-color: $JungleGreen;
+                        border: 1px solid $DarkenJungleGreen;
+                        color: #ffffff;
+                        text-decoration: none;
+                        padding: 0.8rem 1.6rem;
+                        border-radius: 5px;
+                        transition: .2s;
+                        &:hover {
+                            background-color: darken($JungleGreen, 3%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

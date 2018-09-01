@@ -12,13 +12,11 @@ import Template from './components/template'
 
 import Loader from './components/routes/loader';
 import Login from './components/routes/auth/login';
+import Challenges from './components/routes/challenges';
 import Challenge from './components/routes/challenge';
 
 import './App.scss';
-
-const Home = () => (
-    <div>home</div>
-);
+import './stylesheets/presets.scss';
 
 class App extends Component {
     constructor(props) {
@@ -67,7 +65,8 @@ class App extends Component {
                 <div className="App">
                     {this.state.authenticated ? <Template>
                         <Switch>
-                            <Route path="/" exact component={Home}/>
+                            <Route path="/" exact component={Challenges}/>
+                            <Route path="/challenges" exact component={Challenges}/>
                             <Route path="/challenge/:id" exact component={Challenge}/>
                         </Switch>
                     </Template> :

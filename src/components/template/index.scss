@@ -1,5 +1,4 @@
-$navSize: 80px;
-$paddingSides: 3vw;
+@import '../../stylesheets/variables';
 
 .Main {
     display: grid;
@@ -13,7 +12,6 @@ $paddingSides: 3vw;
         &__application {
             width: 100%;
             height: 100%;
-            padding: $paddingSides 5%;
         }
     }
 }
